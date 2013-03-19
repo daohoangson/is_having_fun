@@ -117,21 +117,42 @@ func download_pages(routines int) {
 	run(routines, 1, 1001, download_page)
 }
 
+var get_digits_cached []string
+var get_digits_sem chan int
+
 func get_digits(digits_count int) (string, error) {
+	// we need to use semaphore here to read the file properly
+	get_digits_sem <- 1
+
 	var buffer bytes.Buffer
 	page := 1
 
-	for buffer.Len() < digits_count {
-		file_name := fmt.Sprintf("page_%04d.txt", page)
-		file_in, err := os.Open(file_name)
-		if err != nil {
-			return "", err
-		}
-		defer file_in.Close()
+	if len(get_digits_cached) == 0 {
+		get_digits_cached = make([]string, 1001)
+	}
 
-		content, err := ioutil.ReadAll(file_in)
-		if err != nil {
-			return "", err
+	for buffer.Len() < digits_count {
+		var content []byte
+
+		if len(get_digits_cached[page]) == 0 {
+			file_name := fmt.Sprintf("page_%04d.txt", page)
+			file_in, err := os.Open(file_name)
+			if err != nil {
+				<- get_digits_sem
+				return "", err
+			}
+
+			content, err = ioutil.ReadAll(file_in)
+			file_in.Close()
+
+			if err != nil {
+				<- get_digits_sem
+				return "", err
+			}
+
+			get_digits_cached[page] = string(content)
+		} else {
+			content = []byte(get_digits_cached[page])
 		}
 
 		needed := digits_count - buffer.Len()
@@ -144,23 +165,29 @@ func get_digits(digits_count int) (string, error) {
 		page++
 	}
 
+	<- get_digits_sem
+
 	return buffer.String(), nil
 }
 
 func send_request(digits_count int) {
-	digits, _ := get_digits(digits_count)
+	digits, err := get_digits(digits_count)
+	if err != nil {
+		fmt.Printf("send_request(%d) -> get_digits failed: %s\n", digits_count, err)
+		os.Exit(1)
+	}
 
 	h := md5.New()
 	io.WriteString(h, digits)
-	digits_md5 := h.Sum(nil)
+	digits_md5 := fmt.Sprintf("%x", h.Sum(nil))
 
 	values := make(url.Values)
-	values.Set("email", "geeky@daohoangson.com")
-	values.Set("key", string(digits_md5))
+	values.Set("email", "email@domain.com")
+	values.Set("key", digits_md5)
 	resp, err := http.PostForm("http://www.geeky.vn/register.php", values)
 	if (err != nil) {
 		fmt.Printf("send_request(%d) -> http.PostForm(%d) failed: %s\n", digits_count, digits_md5, err)
-		return
+		os.Exit(1)
 	}
 	defer resp.Body.Close()
 
@@ -168,18 +195,23 @@ func send_request(digits_count int) {
 	body, err := ioutil.ReadAll(resp.Body)
 	if (err != nil) {
 		fmt.Printf("send_request(%d) -> ioutil.ReadAll failed: %s\n", digits_count, err)
-		return
+		os.Exit(1)
 	}
 
-	fmt.Printf("send_request(%d) -> %s\n", digits_count, body)
+	body_str := string(body)
+	fmt.Printf("send_request(%d) -> %s\n", digits_count, body_str)
+	if body_str != "0" {
+		os.Exit(0)
+	}
 }
 
 func bf(routines int, bf_start int) {
-	run(routines, bf_start, bf_start + 10, send_request)
+	run(routines, bf_start, 1000000, send_request)
 }
 
 func main() {
-	routines := 3
+	routines := 25
+	get_digits_sem = make(chan int, 1)
 
 	download_pages(routines)
 	bf(routines, 100000)
