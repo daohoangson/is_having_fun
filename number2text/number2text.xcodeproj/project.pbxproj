@@ -11,6 +11,7 @@
 		160A992F1B5E8FEC00EF86E3 /* engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 160A992D1B5E8FEC00EF86E3 /* engine.cpp */; };
 		160A99321B5E90C500EF86E3 /* english.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 160A99301B5E90C500EF86E3 /* english.cpp */; };
 		169673871B5E9323006C5C6B /* tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 169673851B5E9323006C5C6B /* tests.cpp */; };
+		1696738A1B5E9CF7006C5C6B /* vietnamese.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 169673881B5E9CF7006C5C6B /* vietnamese.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +35,8 @@
 		160A99311B5E90C500EF86E3 /* english.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = english.h; sourceTree = "<group>"; };
 		169673851B5E9323006C5C6B /* tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tests.cpp; sourceTree = "<group>"; };
 		169673861B5E9323006C5C6B /* tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tests.h; sourceTree = "<group>"; };
+		169673881B5E9CF7006C5C6B /* vietnamese.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vietnamese.cpp; sourceTree = "<group>"; };
+		169673891B5E9CF7006C5C6B /* vietnamese.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vietnamese.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +76,8 @@
 				160A992E1B5E8FEC00EF86E3 /* engine.h */,
 				160A99301B5E90C500EF86E3 /* english.cpp */,
 				160A99311B5E90C500EF86E3 /* english.h */,
+				169673881B5E9CF7006C5C6B /* vietnamese.cpp */,
+				169673891B5E9CF7006C5C6B /* vietnamese.h */,
 			);
 			path = number2text;
 			sourceTree = "<group>";
@@ -137,6 +142,7 @@
 				169673871B5E9323006C5C6B /* tests.cpp in Sources */,
 				160A99271B5E70BE00EF86E3 /* main.cpp in Sources */,
 				160A992F1B5E8FEC00EF86E3 /* engine.cpp in Sources */,
+				1696738A1B5E9CF7006C5C6B /* vietnamese.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

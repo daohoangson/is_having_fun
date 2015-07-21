@@ -11,6 +11,24 @@
 #include <cassert>
 #include <iostream>
 #include "english.h"
+#include "vietnamese.h"
+
+void testData(Engine *e, std::string testName, std::string data[], size_t testCount) {
+    for (size_t i = 0; i < testCount; i+=2) {
+        std::cout << data[i] << "...";
+        std::string result = e->process(data[i]);
+        std::cout << result << " ";
+        
+        if (result.compare(data[i+1]) == 0) {
+            std::cout << std::endl;
+        } else {
+            std::cout << "!= " << data[i+1] << std::endl;
+            assert(false);
+        }
+    }
+    
+    std::cout << testName << " (" << testCount << " test cases) ok" << std::endl;
+}
 
 void testEnglish() {
     English *e = new English();
@@ -78,18 +96,39 @@ void testEnglish() {
         "1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "one centillion",
     };
     
-    for (size_t i = 0, l = sizeof(data) / sizeof(std::string); i < l; i+=2) {
-        std::cout << data[i] << "...";
-        std::string result = e->process(data[i]);
-        std::cout << result << " ";
-        
-        if (result.compare(data[i+1]) == 0) {
-            std::cout << std::endl;
-        } else {
-            std::cout << "!= " << data[i+1] << std::endl;
-            assert(false);
-        }
-    }
+    testData(e, "English", data, sizeof(data) / sizeof(std::string));
+}
+
+
+void testVietnamese() {
+    Vietnamese *e = new Vietnamese();
     
-    std::cout << "ok" << std::endl;
+    std::string data[] = {
+        "0", "",
+        "1", "một",
+        "2", "hai",
+        "3", "ba",
+        "4", "bốn",
+        "5", "năm",
+        "6", "sáu",
+        "7", "bảy",
+        "8", "tám",
+        "9", "chín",
+        "10", "mười",
+        "11", "mười một",
+        "20", "hai mươi",
+        "21", "hai mốt",
+        "22", "hai hai",
+        "24", "hai tư",
+        "25", "hai lăm",
+        "100", "một trăm",
+        "101", "một trăm lẻ một",
+        "1000", "một nghìn",
+        "10000", "mười nghìn",
+        "100000", "một trăm nghìn",
+        "1000000", "một triệu",
+        "1000000000", "một tỉ",
+    };
+    
+    testData(e, "Vietnamese", data, sizeof(data) / sizeof(std::string));
 }

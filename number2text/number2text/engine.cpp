@@ -15,8 +15,8 @@
 std::string Engine::input(int argc, const char * argv[]) {
     std::string number = "";
     
-    if (argc == 2) {
-        number = argv[1];
+    if (argc > 1) {
+        number = argv[argc - 1];
     }
     
     while (number.length() == 0 || !verifyInput(number)) {

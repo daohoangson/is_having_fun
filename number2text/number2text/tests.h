@@ -12,5 +12,6 @@
 #include <stdio.h>
 
 void testEnglish();
+void testVietnamese();
 
 #endif /* defined(__number2text__tests__) */
