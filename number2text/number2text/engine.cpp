@@ -28,6 +28,10 @@ std::string Engine::input(int argc, const char * argv[]) {
 }
 
 std::string Engine::process(std::string number) {
+    if (number.compare("0") == 0) {
+        return doZero();
+    }
+    
     size_t length = number.length();
     size_t offset = 0;
     std::vector<std::string> results;

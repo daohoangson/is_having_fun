@@ -34,7 +34,7 @@ void testEnglish() {
     English *e = new English();
     
     std::string data[] = {
-        "0", "",
+        "0", "zero",
         "1", "one",
         "2", "two",
         "3", "three",
@@ -104,7 +104,7 @@ void testVietnamese() {
     Vietnamese *e = new Vietnamese();
     
     std::string data[] = {
-        "0", "",
+        "0", "không",
         "1", "một",
         "2", "hai",
         "3", "ba",

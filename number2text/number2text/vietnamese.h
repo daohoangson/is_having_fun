@@ -14,6 +14,7 @@
 class Vietnamese: public Engine {
     
 protected:
+    virtual std::string doZero() override;
     virtual void doOne(std::vector<std::string> &results, size_t offset, std::string number) override;
     virtual void doTwo(std::vector<std::string> &results, size_t offset, std::string number) override;
     virtual void doThree(std::vector<std::string> &results, size_t offset, std::string number) override;

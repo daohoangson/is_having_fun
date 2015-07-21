@@ -10,6 +10,10 @@
 
 #include <cassert>
 
+std::string English::doZero() {
+    return "zero";
+}
+
 void English::doOne(std::vector<std::string> &results, size_t offset, std::string number) {
     assert(number.length() == 1);
     int value = atoi(number.c_str());

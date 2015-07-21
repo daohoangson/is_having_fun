@@ -19,6 +19,7 @@ public:
     std::string process(std::string number);
 
 protected:
+    virtual std::string doZero() = 0;
     virtual void doOne(std::vector<std::string> &results, size_t offset, std::string number) = 0;
     virtual void doTwo(std::vector<std::string> &results, size_t offset, std::string number) = 0;
     virtual void doThree(std::vector<std::string> &results, size_t offset, std::string number) = 0;
