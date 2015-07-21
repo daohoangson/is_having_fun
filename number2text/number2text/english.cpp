@@ -64,6 +64,7 @@ void English::doTwo(std::vector<std::string> &results, size_t offset, std::strin
     
     switch (a) {
         case 0:
+            // treat as single digit number
             doOne(results, offset, number.substr(1, 1));
             return;
         case 1:
@@ -135,6 +136,8 @@ void English::doThree(std::vector<std::string> &results, size_t offset, std::str
     
     int a = value / 100;
     if (a > 0) {
+        // make use of `doOne` to generate value for "hundred"
+        // then use `doTwo` for the rest of the digits
         std::vector<std::string> tmp;
         doOne(tmp, 0, number.substr(0, 1));
         tmp.push_back("hundred");
@@ -151,6 +154,7 @@ void English::doThree(std::vector<std::string> &results, size_t offset, std::str
             results.insert(results.begin(), partialResult);
         }
     } else {
+        // treat as two digits number
         doTwo(results, offset, number.substr(1, 2));
     }
 }
@@ -164,7 +168,10 @@ void English::doUnit(std::vector<std::string> &results, size_t offset, std::stri
         results.insert(results.begin(), text);
         return;
     }
+    assert(offset % 3 == 0);
     
+    // try to get suitable units from offset
+    // if no exact match can be found, try to mix multiple units together
     std::vector<std::string> units;
     size_t remaining = offset;
     while (remaining > 0) {

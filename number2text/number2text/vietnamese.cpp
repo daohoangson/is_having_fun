@@ -113,6 +113,7 @@ void Vietnamese::doUnit(std::vector<std::string> &results, size_t offset, std::s
         results.insert(results.begin(), text);
         return;
     }
+    assert(offset % 3 == 0);
     
     std::vector<std::string> units;
     size_t remaining = offset;

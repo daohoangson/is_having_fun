@@ -20,6 +20,8 @@ std::string Engine::input(int argc, const char * argv[]) {
     }
     
     while (number.length() == 0 || !verifyInput(number)) {
+        // keep asking until a number is entered
+        // TODO: support multi-languages in the prompt maybe?
         std::cout << "n=? ";
         std::getline(std::cin, number);
     }
@@ -37,10 +39,13 @@ std::string Engine::process(std::string number) {
     std::vector<std::string> results;
     
     while (offset < length) {
+        // work backward from the end of the number
         size_t remaining = length - offset;
         size_t workingLength = (remaining > 3 ? 3 : remaining);
+        // extract maximum 3 digits at once to process
         std::string substr = number.substr(length - offset - workingLength, workingLength);
         
+        // feed one of the three methods (doOne, doTwo, doThree) with the extracted digits
         std::string result;
         switch (workingLength) {
             case 1:
@@ -58,6 +63,7 @@ std::string Engine::process(std::string number) {
     }
     
     if (results.size() > 1) {
+        // more than one result found, connect the last one with the rest via `doAnd`
         std::string lastResult = results[results.size() - 1];
         results.pop_back();
         return doAnd(implode(results), lastResult);
@@ -81,5 +87,6 @@ std::string Engine::implode(std::vector<std::string> &vector) {
 }
 
 bool Engine::verifyInput(std::string input) {
+    // use regex to make sure input contains only digits
     return std::regex_match(input, std::regex("^[0-9]+$"));
 }
