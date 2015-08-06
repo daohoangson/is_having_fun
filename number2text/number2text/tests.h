@@ -12,6 +12,7 @@
 #include <stdio.h>
 
 void testEnglish();
+void testSpanish();
 void testVietnamese();
 
 #endif /* defined(__number2text__tests__) */

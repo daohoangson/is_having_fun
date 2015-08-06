@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include "english.h"
+#include "spanish.h"
 #include "vietnamese.h"
 #include "tests.h"
 
@@ -17,6 +18,7 @@ int main(int argc, const char * argv[]) {
             // run simple tests
             // I really should use GoogleTest...
             testEnglish();
+            testSpanish();
             testVietnamese();
             return 0;
         }
@@ -24,9 +26,15 @@ int main(int argc, const char * argv[]) {
     
     Engine *engine = nullptr;
     for (int i = 1; i < argc; i++) {
+        // allow using command line argument to select language
         if (strcmp(argv[i], "vietnamese") == 0) {
-            // use Vietnamese if specified via command line argument
             engine = new Vietnamese();
+            break;
+        }
+        
+        if (strcmp(argv[i], "spanish") == 0) {
+            engine = new Spanish();
+            break;
         }
     }
     if (engine == nullptr) {
