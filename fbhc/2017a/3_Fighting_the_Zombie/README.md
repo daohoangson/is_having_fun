@@ -1,0 +1,33 @@
+# Fighting the Zombie
+
+## "Okay, Wizard, cast your spell!"
+
+But which of your many spells to cast? In the ever-popular role-playing game Dungeons & Dragons, or D&D, you determine a spell's damage by rolling polyhedral dice with 4, 6, 8, 10, 12, or 20 sides. Since there's a lot of dice-rolling involved, players use shorthand to denote which dice should be rolled. XdY means "roll a Y-sided die X times, and sum the rolls''. Sometimes, you must add or subtract a value Z after you finish rolling, in which case the notation is XdY+Z or XdY-Z respectively.
+
+For example, if you roll 2d4+1, you'll end up with a result between 3 and 9 inclusive. If you roll 1d6-3, your result will be between -2 and 3 inclusive.
+
+In D&D, wizards are powerful but flimsy spellcasters. As a wizard fighting a zombie, your best strategy is to maximize the chance that you can kill the zombie with a single spell before it has a chance to retaliate. What spell should you cast?
+
+## Input
+Input begins with an integer T, the number of zombies you'll fight. For each zombie, there are two lines. The first contains two integers, H and S, the minimum amount of damage it takes to defeat the zombie, and the number of spells you have prepared, respectively. The second line contains S spell descriptions separated by single spaces. A spell description is simply the amount of damage a spell does in the notation described above.
+
+## Output
+For each zombie, print a line containing the probability of defeating the zombie if you select your spell optimally.
+
+Absolute and relative errors of up to 1e-6 will be ignored.
+
+## Constraints
+1 ≤ T ≤ 1,000 
+1 ≤ H ≤ 10,000 
+2 ≤ S ≤ 10 
+Additionally, the following constraints will hold for each spell:
+
+1 ≤ X ≤ 20 
+Y ∈ {4, 6, 8, 10, 12, 20} 
+1 ≤ Z ≤ 10,000, if Z is specified. 
+X, Y, and Z will be integers with no leading zeros. 
+
+## Explanation of Sample
+In the first case, you can guarantee a kill with the first spell, which must always do at least 2 damage.
+
+In the third case, your first spell is the best. If you roll a 4, you'll do the requisite 8 damage. The second spell requires rolling a 4 on two dice rather than just one, and the third spell requires rolling a 4 on all three dice.
